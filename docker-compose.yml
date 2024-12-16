@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: population_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+    container_name: population_app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/population_db
+
+volumes:
+  postgres_data:
