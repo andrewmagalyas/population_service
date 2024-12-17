@@ -21,6 +21,6 @@ def fetch_and_store_data():
         data.append({"name": country_name, "region": region, "population": population})
 
     session = SessionLocal()
-    session.query(Country).delete()  # Очистка старих даних
+    session.query(Country).delete()
     session.bulk_insert_mappings(Country, data)
     session.commit()
