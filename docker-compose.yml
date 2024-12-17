@@ -1,9 +1,8 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres:15
-    container_name: postgres
+  postgres:
+    image: postgres:13
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -14,13 +13,14 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   app:
-    build:
-      context: .
-    container_name: population_app
-    depends_on:
-      - db
+    build: .
     environment:
-      DATABASE_URL: postgres://user:password@db:5432/population_db
+      DATABASE_URL: postgresql://user:password@postgres/population_db
+      SOURCE_URL: https://en.wikipedia.org/w/index.php?title=List_of_countries_by_population_(United_Nations)&oldid=1215058959
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:

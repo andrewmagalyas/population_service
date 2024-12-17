@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.services.get_data import fetch_and_store_data
-from app.services.print_data import print_region_data
+from app.get_data import fetch_and_store_data
+from app.print_data import print_region_data
 
 app = FastAPI()
 

@@ -1,17 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-from app.database import engine
-from app.models import Base, Country
+from app.database import SessionLocal
+from app.models import Country
 from app.config import SOURCE_URL
-from sqlalchemy.orm import sessionmaker
-
-Session = sessionmaker(bind=engine)
 
 def fetch_and_store_data():
     response = requests.get(SOURCE_URL)
     soup = BeautifulSoup(response.content, "html.parser")
 
-    # Парсинг таблиці
     rows = soup.select("table.wikitable tbody tr")[1:]
     data = []
     for row in rows:
@@ -24,9 +20,7 @@ def fetch_and_store_data():
 
         data.append({"name": country_name, "region": region, "population": population})
 
-    # Зберігання в базу
-    Base.metadata.create_all(bind=engine)
-    session = Session()
-    session.query(Country).delete()  # Видалення старих даних
+    session = SessionLocal()
+    session.query(Country).delete()  # Очистка старих даних
     session.bulk_insert_mappings(Country, data)
     session.commit()

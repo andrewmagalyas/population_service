@@ -1,12 +1,9 @@
 from sqlalchemy import func
-from sqlalchemy.orm import sessionmaker
+from app.database import SessionLocal
 from app.models import Country
-from app.database import engine
-
-Session = sessionmaker(bind=engine)
 
 def print_region_data():
-    session = Session()
+    session = SessionLocal()
 
     query = session.query(
         Country.region,
