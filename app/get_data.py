@@ -16,7 +16,13 @@ def fetch_and_store_data():
             continue
         country_name = columns[1].text.strip()
         region = columns[2].text.strip()
-        population = int(columns[3].text.replace(",", "").strip())
+        population = columns[3].text.replace(",", "").strip()
+
+        try:
+            population = int(population)
+        except ValueError:
+            print(f"Пропускаємо рядок для {country_name}, оскільки дані про популяцію некоректні: {population}")
+            continue
 
         data.append({"name": country_name, "region": region, "population": population})
 

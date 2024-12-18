@@ -1,8 +1,6 @@
-version: "3.9"
-
 services:
   postgres:
-    image: postgres:13
+    image: postgres:15
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -11,6 +9,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - population_service_default
 
   app:
     build: .
@@ -21,6 +21,15 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    networks:
+      - population_service_default
 
 volumes:
   postgres_data:
+
+networks:
+  population_service_default:
+    external: true
