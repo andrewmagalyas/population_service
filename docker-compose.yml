@@ -10,6 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
   app:
     build: .
     environment:
@@ -22,10 +23,7 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
-      interval: 30s
-      retries: 3
+
 
   get_data:
     build: .
@@ -35,6 +33,7 @@ services:
       - app
     command: curl -X POST http://app:8000/get_data
 
+
   print_data:
     build: .
     volumes:
@@ -42,6 +41,7 @@ services:
     depends_on:
       - app
     command: curl http://app:8000/print_data
+
 
 volumes:
   postgres_data: { }
