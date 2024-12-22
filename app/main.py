@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app.config import SOURCE_URL
 from app.database import engine, Base
 from app.get_data import PopulationDataPipeline
-from print_data import RegionDataProcessor
+from app.print_data import RegionDataProcessor
 
 Base.metadata.create_all(bind=engine)
 
