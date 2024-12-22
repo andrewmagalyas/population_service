@@ -9,8 +9,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - population_service_default
+
 
   app:
     build: .
@@ -24,31 +23,28 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-    networks:
-      - population_service_default
+
 
   get_data:
     build: .
-    command: ["get_data"]  # Pass 'get_data' to entrypoint.sh
+    command: [ "get_data" ]  # Pass 'get_data' to entrypoint.sh
     environment:
       DATABASE_URL: postgresql://user:password@postgres/population_db
     depends_on:
       - postgres
-    networks:
-      - population_service_default
+
 
   print_data:
     build: .
-    command: ["print_data"]  # Pass 'print_data' to entrypoint.sh
+    command: [ "print_data" ]  # Pass 'print_data' to entrypoint.sh
     environment:
       DATABASE_URL: postgresql://user:password@postgres/population_db
     depends_on:
       - postgres
-    networks:
-      - population_service_default
+
 
 volumes:
-  postgres_data: {}
+  postgres_data: { }
 
 networks:
   population_service_default:
