@@ -29,19 +29,16 @@ services:
     build: .
     volumes:
       - .:/app
-    command: curl -X POST http://web:8000/get_data
+    command: curl -X POST http://app:8000/get_data
 
 
   print_data:
     build: .
     volumes:
       - .:/app
-    command: curl http://web:8000/print_data
+    command: curl http://app:8000/print_data
 
 
 volumes:
   postgres_data: { }
 
-networks:
-  population_service_default:
-    external: true
