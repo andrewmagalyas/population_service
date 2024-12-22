@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   postgres:
     image: postgres:15
@@ -25,7 +23,7 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
       interval: 30s
       retries: 3
 
@@ -46,5 +44,5 @@ services:
     command: curl http://app:8000/print_data
 
 volumes:
-  postgres_data: {}
+  postgres_data: { }
 
