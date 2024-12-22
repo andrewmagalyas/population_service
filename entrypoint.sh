@@ -6,7 +6,7 @@ if [ "$1" == "get_data" ]; then
     python -m app.get_data
 elif [ "$1" == "print_data" ]; then
     # Execute the code for printing data
-    python -m app.print_data
+    python -m app.main:print_data
 else
     # Default to running the FastAPI app
     uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload

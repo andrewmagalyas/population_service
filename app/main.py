@@ -12,9 +12,6 @@ app = FastAPI()
 
 @app.post("/get_data")
 def get_data():
-    """
-    Fetch and store population data from the configured source URL.
-    """
     pipeline = PopulationDataPipeline(SOURCE_URL)
     pipeline.run()
     return {"status": "Data fetched and stored successfully."}
@@ -31,4 +28,4 @@ def print_data():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
