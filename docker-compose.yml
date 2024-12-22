@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   postgres:
     image: postgres:15
@@ -9,7 +11,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 
   app:
     build: .
@@ -23,22 +24,27 @@ services:
     dns:
       - 8.8.8.8
       - 8.8.4.4
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      retries: 3
 
   get_data:
     build: .
     volumes:
       - .:/app
+    depends_on:
+      - app
     command: curl -X POST http://app:8000/get_data
-
 
   print_data:
     build: .
     volumes:
       - .:/app
+    depends_on:
+      - app
     command: curl http://app:8000/print_data
 
-
 volumes:
-  postgres_data: { }
+  postgres_data: {}
 
