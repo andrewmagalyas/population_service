@@ -24,6 +24,7 @@ services:
       - postgres
     networks:
       - population_service_network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 
   get_data:
@@ -32,7 +33,7 @@ services:
       - .:/app
     depends_on:
       - app
-    command: curl -X POST http://0.0.0.0:8000/get_data
+    command: curl -X POST http://app:8000/get_data
     networks:
       - population_service_network
 
