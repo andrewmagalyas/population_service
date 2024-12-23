@@ -9,6 +9,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - population_service_network
 
 
   app:
@@ -20,9 +22,8 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
+    networks:
+      - population_service_network
 
 
   get_data:
@@ -32,8 +33,8 @@ services:
     depends_on:
       - app
     command: curl -X POST http://app:8000/get_data
-    links:
-      - app
+    networks:
+      - population_service_network
 
 
   print_data:
@@ -43,10 +44,14 @@ services:
     depends_on:
       - app
     command: curl http://app:8000/print_data
-    links:
-      - app
+    networks:
+      - population_service_network
 
 
 volumes:
-  postgres_data: { }
+  postgres_data: {}
+
+networks:
+  population_service_network:
+    driver: bridge
 
