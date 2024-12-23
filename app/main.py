@@ -24,10 +24,6 @@ def print_data():
     processor.close()
     return {"status": "Data printed successfully."}
 
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
-
 
 if __name__ == "__main__":
     import uvicorn

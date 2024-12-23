@@ -16,7 +16,7 @@ services:
   app:
     build: .
     environment:
-      DATABASE_URL: postgresql://user:password@postgres/population_db
+      DATABASE_URL: postgresql://user:password@postgres:5432/population_db
       SOURCE_URL: https://en.wikipedia.org/w/index.php?title=List_of_countries_by_population_(United_Nations)&oldid=1215058959
     ports:
       - "8000:8000"
