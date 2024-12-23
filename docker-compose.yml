@@ -34,7 +34,7 @@ services:
     depends_on:
       - app
     command: >
-      sh -c "./wait-for-it.sh app:8000 -- curl -X POST http://app:8000/get_data"
+      sh -c "until curl -s http://app:8000; do sleep 2; done && curl -X POST http://app:8000/get_data"
     networks:
       - population_service_network
 
