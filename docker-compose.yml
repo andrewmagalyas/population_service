@@ -32,6 +32,8 @@ services:
     depends_on:
       - app
     command: curl -X POST http://app:8000/get_data
+    links:
+      - app
 
 
   print_data:
@@ -41,6 +43,8 @@ services:
     depends_on:
       - app
     command: curl http://app:8000/print_data
+    links:
+      - app
 
 
 volumes:
