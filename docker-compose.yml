@@ -46,7 +46,7 @@ services:
     depends_on:
       - app
     command: >
-      sh -c "until curl -s http://app:8000; do sleep 2; done && curl -X GET http://app:8000/print_data > /proc/1/fd/1"
+      sh -c "until curl -s http://app:8000; do sleep 2; done && curl -X GET http://app:8000/print_data"
     networks:
       - population_service_network
 
