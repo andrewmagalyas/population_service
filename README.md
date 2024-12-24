@@ -15,7 +15,7 @@
 
 ```sh
     git clone https://github.com/andrewmagalyas/population_service.git
-    cd population_service
+    cd population_service/
 ```
 ### 2. Запуск Docker Compose
 Переконайтеся, що у вас встановлені Docker та Docker Compose. Далі запустіть наступні команди:
